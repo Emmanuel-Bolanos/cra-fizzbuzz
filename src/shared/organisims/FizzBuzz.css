@@ -1,0 +1,19 @@
+.setRedBg {
+  background-color: red;
+}
+
+.setGreenBg {
+  background-color: green;
+}
+
+.setYellowBg {
+  background-color: yellow;
+}
+
+.setBlueBg {
+  background-color: blue;
+}
+
+.setDefBg {
+  background-color: rgb(68, 68, 68);
+}

@@ -1,6 +1,7 @@
 body {
   background-color: rgb(146, 81, 51);
   text-align: center;
+  transition: all 1s ease;
 }
 
 
