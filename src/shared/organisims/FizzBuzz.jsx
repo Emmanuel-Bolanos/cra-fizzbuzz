@@ -1,5 +1,6 @@
 import React from 'react';
 
+// background colors
 const styles = {
   greenBg: {
     backgroundColor: '#50bd47',
@@ -15,21 +16,26 @@ const styles = {
   }
 }
 
-const updateVal = (value) => {
-  return value % 3 === 0 && value % 5 === 0
-    ? [styles.greenBg, 'Fizz Buzz'] /* Green */
-    : (value % 3 === 0) 
-    ? [styles.redBg, 'Fizz'] /* Red */
-    : (value % 5 === 0) 
-    ? [styles.yellowBg, 'Buzz'] /* Yellow */
-    : [styles.defaultBg, value]; /* Default */
+// determine if number should be FizzBuzz'ed
+// returns an object holding the background and
+// value of the number
+const updateValue = (num) => {
+  return num % 3 === 0 && num % 5 === 0
+    ? {bgClass: styles.greenBg, value: 'Fizz Buzz'} /* Green */
+    : (num % 3 === 0) 
+    ? {bgClass: styles.redBg, value: 'Fizz'} /* Red */
+    : (num % 5 === 0) 
+    ? {bgClass: styles.yellowBg, value: 'Buzz'} /* Yellow */
+    : {bgClass: styles.defaultBg, value: num}; /* Default */
 };
 
 const FizzBuzz = ({arr}) => {
+  // Traverse array and substitute required element
   const numbers = arr.map((_, idx) => {
-    const [bgClass, value] = updateVal(idx + 1);
+    const {bgClass, value} = updateValue(idx + 1);
     return <li key={idx + 1} style={bgClass}> {value} </li>
-  })
+  });
+  // return array of li elements
   return (
     <React.Fragment>
       {numbers}
@@ -37,8 +43,8 @@ const FizzBuzz = ({arr}) => {
   )
 }
 
-
 const StartFizzBuzz = ({limit}) => {
+  // create an array of length 'limit' filled with 1s
   const arr = new Array(limit).fill(1);
   return (
     <ul className="counter"> 

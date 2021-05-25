@@ -41,4 +41,5 @@ body {
 
 .App .counter > * {
   padding: 15px;
+  margin: 2px;
 }
