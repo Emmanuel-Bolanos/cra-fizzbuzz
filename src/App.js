@@ -1,6 +1,6 @@
 import React from 'react';
-import StartFizzBuzz from './shared/organisims/FizzBuzz'
 import Drag from './shared/organisims/Drag'
+import StartFizzBuzz from './shared/organisims/FizzBuzz'
 import './App.css';
 
 const FizzBuzz = () => {

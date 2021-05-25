@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { DragOutlined } from '@ant-design/icons'
 import './Drag.css'
 
 class Drag extends Component {
@@ -12,12 +13,12 @@ class Drag extends Component {
       styles: {}
     }
 
-    this._dragStart = this._dragStart.bind(this);
-    this._dragging = this._dragging.bind(this);
-    this._dragEnd = this._dragEnd.bind(this);
+    this.dragStart = this.dragStart.bind(this);
+    this.dragging = this.dragging.bind(this);
+    this.dragEnd = this.dragEnd.bind(this);
   }
 
-  _dragStart(e) {
+  dragStart(e) {
     this.setState({
       diffX: e.screenX - e.currentTarget.getBoundingClientRect().left,
       diffY: e.screenY - e.currentTarget.getBoundingClientRect().top,
@@ -25,7 +26,7 @@ class Drag extends Component {
     });
   }
 
-  _dragging(e) {
+  dragging(e) {
     if(this.state.dragging) {
       const left = e.screenX - this.state.diffX;
       const top = e.screenY - this.state.diffY;
@@ -36,9 +37,9 @@ class Drag extends Component {
         }
       });
     }
-  }    
+  }
 
-  _dragEnd() {
+  dragEnd() {
       this.setState({
           dragging: false
       });
@@ -50,11 +51,15 @@ class Drag extends Component {
         <div 
           style={this.state.styles}
           className="dragContainer"
-          onMouseDown={this._dragStart} 
-          onMouseMove={this._dragging} 
-          onMouseUp={this._dragEnd}
         >
-          <div className="contentContainer">
+          <div
+            onMouseDown={this.dragStart} 
+            onMouseMove={this.dragging} 
+            onMouseUp={this.dragEnd}
+          >
+            <DragOutlined />
+          </div>
+          <div>
             {this.props.content}
           </div>
         </div>
