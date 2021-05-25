@@ -1,65 +1,52 @@
-import React, { Component } from 'react';
-import StartButton from './StartButton';
+import React from 'react';
 
-const UpdateBackgroung = ({value}) => {
-  value % 3 === 0 && value % 5 === 0
-    ? document.body.style.backgroundColor = '#50bd47' /* Green */
+const styles = {
+  greenBg: {
+    backgroundColor: '#50bd47',
+  },
+  redBg: {
+    backgroundColor: '#912400',
+  },
+  yellowBg: {
+    backgroundColor: '#e5b11c',
+  },
+  defaultBg: {
+    backgroundColor: '#2c3f85',
+  }
+}
+
+const updateVal = (value) => {
+  return value % 3 === 0 && value % 5 === 0
+    ? [styles.greenBg, 'Fizz Buzz'] /* Green */
     : (value % 3 === 0) 
-    ? document.body.style.backgroundColor = '#912400' /* Red */
+    ? [styles.redBg, 'Fizz'] /* Red */
     : (value % 5 === 0) 
-    ? document.body.style.backgroundColor = '#e5b11c' /* Yellow */
-    : document.body.style.backgroundColor = '#2c3f85'; /* Default */
-  return (
-    <p className='counter'> {value} </p>
-  );
+    ? [styles.yellowBg, 'Buzz'] /* Yellow */
+    : [styles.defaultBg, value]; /* Default */
 };
 
-class StartFizzBuzz extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { value: 1, isOn: false };
-    this.handleClick = this.handleClick.bind(this);
-  }
+const FizzBuzz = ({arr}) => {
+  const numbers = arr.map((_, idx) => {
+    const [bgClass, value] = updateVal(idx + 1);
+    return <li key={idx + 1} style={bgClass}> {value} </li>
+  })
+  return (
+    <React.Fragment>
+      {numbers}
+    </React.Fragment>
+  )
+}
 
-  handleClick() {
-    const toogleOn = !this.state.isOn;
-    this.setState(() => ({
-      isOn: toogleOn,
-    }));
-    (this.state.isOn) ? this.pauseCount() : this.startCount();
-  }
 
-  pauseCount() {
-    clearInterval(this.intervalCount);
-  }
-
-  startCount() {
-    this.intervalCount = setInterval(() => {
-      const newValue = this.state.value === 100 ? 1 : this.state.value + 1;
-      this.setState(() => ({
-        value: newValue,
-        isOn: true,
-      }));
-    }, 1000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.intervalCount);
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        <UpdateBackgroung value={this.state.value} />
-
-        <StartButton 
-          onClick={this.handleClick}
-          isOn={this.state.isOn}
-        />
-
-      </React.Fragment>
-    )
-  };
+const StartFizzBuzz = ({limit}) => {
+  const arr = new Array(limit).fill(1);
+  return (
+    <ul className="counter"> 
+      <FizzBuzz 
+        arr={arr}
+      />
+    </ul>
+  );
 }
 
 export default StartFizzBuzz;
